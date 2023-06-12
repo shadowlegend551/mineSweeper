@@ -1,9 +1,8 @@
 from random import randint
 
-
+reveal_mine = lambda x : 9 if x == -119 else x
 
 class Board:
-    reveal_mine = lambda x : 9 if x == self.HIDDEN_MINE else x
     SURROUNDED = 8
     EMPTY = 0
     MINE = 9
@@ -94,10 +93,27 @@ class Board:
                 self.openSurroundingCells(x+1, y)
         
                 
-        elif self.board[y][x] == 9:
+        elif self.board[y][x] == self.MINE:
             for column in range(len(self.board)):
                 for index in range(len(self.board[column])):
                     self.board[column][index] = reveal_mine(self.board[column][index])
+
+
+    def updateBoardNumbers(self):
+        for y in range(self.height):
+            for x in range(len(self.board[y])):
+                if self.board[y][x] != self.HIDDEN_MINE:
+                    self.board[y][x] = self.getSurroundingMines(x, y, self.HIDDEN_MINE) - 128
+
+
+    def moveMineToFirstEmpty(self, x, y):
+        for column in range(self.height):
+            for row in range(len(column)):
+                value = self.board[column][row]
+                if value != self.HIDDEN_MINE:
+                    self.board[column][row] = self.HIDDEN_MINE
+                    self.board[column][row] = self.EMPTY
+                    self.updateBoardNumbers()
 
     
     def __init__(self, height, width, mines):
@@ -118,8 +134,5 @@ class Board:
             if self.getSurroundingMines(mine_x, mine_y, self.MINE) < self.SURROUNDED:
                 self.board[mine_y][mine_x] = self.HIDDEN_MINE  # Negative number = unrevealed cell, add 128 to get real value.
                 total_mines += 1
-
-        for y in range(self.height):
-            for x in range(len(self.board[y])):
-                if self.board[y][x] != self.HIDDEN_MINE:
-                    self.board[y][x] = self.getSurroundingMines(x, y, self.HIDDEN_MINE) - 128
+        self.updateBoardNumbers()
+ 
