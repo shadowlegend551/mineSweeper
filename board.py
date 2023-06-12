@@ -5,6 +5,7 @@ from random import randint
 class Board:
     reveal_mine = lambda x : 9 if x == self.HIDDEN_MINE else x
     SURROUNDED = 8
+    EMPTY = 0
     MINE = 9
     HIDDEN_MINE = -119
 
@@ -100,8 +101,6 @@ class Board:
 
     
     def __init__(self, height, width, mines):
-        self.EMPTY = 0
-
         self.height = height
         self.board = [[self.EMPTY] * width for _ in range(height)]
 
