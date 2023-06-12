@@ -9,7 +9,7 @@ class Ui:
     def updateBoard(self, x, y):
         self.board.openSurroundingCells(x, y)
 
-        for column in self.cells:
+        for column in self.visual_board:
             for cell in column:
                 if cell.value != self.board.board[cell.y][cell.x]:
                     cell.value = self.board.board[cell.y][cell.x]
@@ -22,12 +22,12 @@ class Ui:
         self.colours = colour_settings
 
         board_template = np.zeros((width, height), dtype=np.int8)
-        self.cells = []
+        self.visual_board = []
         self.root = Tk()
         self.board = Board(board_template, mines_amount)
 
         for y in range(height):
-            self.cells.append([])
+            self.visual_board.append([])
             for x in range(width):
-                self.cells[y].append(Cell(x, y, self.board.board[y][x], self))
-                self.cells[y][x].button.grid(row=y, column=x)
+                self.visual_board[y].append(Cell(x, y, self.board.board[y][x], self))
+                self.visual_board[y][x].button.grid(row=y, column=x)
