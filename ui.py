@@ -22,12 +22,12 @@ class Ui:
         self.colours = colour_settings
 
         board_template = np.zeros((width, height), dtype=np.int8)
-        self.cells = np.empty_like(board_template, dtype=Cell)
-
+        self.cells = []
         self.root = Tk()
         self.board = Board(board_template, mines_amount)
 
         for y in range(height):
+            self.cells.append([])
             for x in range(width):
-                self.cells[y][x] = Cell(x, y, self.board.board[y][x], self, self.updateBoard)
+                self.cells[y].append(Cell(x, y, self.board.board[y][x], self, self.updateBoard))
                 self.cells[y][x].button.grid(row=y, column=x)
