@@ -29,5 +29,5 @@ class Ui:
         for y in range(height):
             self.cells.append([])
             for x in range(width):
-                self.cells[y].append(Cell(x, y, self.board.board[y][x], self, self.updateBoard))
+                self.cells[y].append(Cell(x, y, self.board.board[y][x], self))
                 self.cells[y][x].button.grid(row=y, column=x)
