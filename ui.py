@@ -1,5 +1,4 @@
 from tkinter import Tk
-import numpy as np
 
 from board import Board
 from cell import Cell
@@ -19,12 +18,11 @@ class Ui:
 
     def __init__(self, height, width, colour_settings, mines_amount):
 
-        self.colours = colour_settings
-
-        board_template = np.zeros((width, height), dtype=np.int8)
-        self.visual_board = []
         self.root = Tk()
-        self.board = Board(board_template, mines_amount)
+        self.colours = colour_settings
+        self.visual_board = []
+
+        self.board = Board(height, width, mines_amount)
 
         for y in range(height):
             self.visual_board.append([])
