@@ -1,0 +1,5 @@
+A simple mine sweeper game. Currently you can't mark mines with flags.
+When a mine is pressed, the game reveals the rest of the mines but does not display a message.
+
+Cells are 8bit integers (range -128 - 127). When created, 128 will be subtracted from their value to mark unrevealed.
+When Revealed, 128 is added to their value to get the real value.
